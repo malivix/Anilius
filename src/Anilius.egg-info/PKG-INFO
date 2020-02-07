@@ -1,0 +1,13 @@
+Metadata-Version: 2.1
+Name: Anilius
+Version: 1.0.0a0
+Summary: GRPC framework for microservice ecosystem
+Home-page: UNKNOWN
+Author: Mahdi Zarrintareh
+Author-email: mza2rintareh@gmail.com
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Requires-Python: >=3.6
+Provides-Extra: dotenv
+Provides-Extra: dev

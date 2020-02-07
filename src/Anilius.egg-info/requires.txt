@@ -1,0 +1,8 @@
+
+[dev]
+pytest
+coverage
+tox
+
+[dotenv]
+python-dotenv

@@ -1,0 +1,3 @@
+[console_scripts]
+anilius = anilius.cli.main:main
+
