@@ -1,17 +1,18 @@
-from sqlalchemy.orm import scoped_session, sessionmaker
+from contextlib import AbstractContextManager
 
 from anilius.db.db import DB
 from anilius.utils.singleton import Singleton
+from sqlalchemy.orm import scoped_session, sessionmaker
 
 
-class DBSession(metaclass=Singleton):
+class DBSession(AbstractContextManager, metaclass=Singleton):
     def __init__(
-        self,
-        autocommit=False,
-        autoflush=False,
-        commit=True,
-        expire_on_commit=False,
-        close=True,
+            self,
+            autocommit=False,
+            autoflush=False,
+            commit=True,
+            expire_on_commit=False,
+            close=True,
     ):
         self.engine = DB.get_engine()
         self.session = scoped_session(
@@ -39,7 +40,7 @@ class DBSession(metaclass=Singleton):
         if exc_val:
             self.session.rollback()
             self.session.close()
-            raise exc_type(exc_val)
+            return False
         elif self.commit:
             self.session.commit()
             if self.close:
