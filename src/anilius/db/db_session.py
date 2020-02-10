@@ -5,14 +5,14 @@ from anilius.utils.singleton import Singleton
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 
-class DBSession(AbstractContextManager, metaclass=Singleton):
+class DBSession(metaclass=Singleton):
     def __init__(
-            self,
-            autocommit=False,
-            autoflush=False,
-            commit=True,
-            expire_on_commit=False,
-            close=True,
+        self,
+        autocommit=False,
+        autoflush=False,
+        commit=True,
+        expire_on_commit=False,
+        close=True,
     ):
         self.engine = DB.get_engine()
         self.session = scoped_session(

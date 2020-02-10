@@ -11,12 +11,12 @@ with io.open("src/anilius/__init__.py", "rt", encoding="utf8") as f:
     version = re.search(r'__version__ = "(.*?)"', f.read()).group(1)
 
 setup(
-    name='Anilius',
+    name="Anilius",
     version=version,
-    description='GRPC framework for microservice ecosystem',
+    description="GRPC framework for microservice ecosystem",
     long_description=readme,
-    author='Mahdi Zarrintareh',
-    author_email='mza2rintareh@gmail.com',
+    author="Mahdi Zarrintareh",
+    author_email="mza2rintareh@gmail.com",
     packages=find_packages("src"),
     package_dir={"": "src"},
     include_package_data=True,
@@ -41,13 +41,6 @@ setup(
         "SQLAlchemy-Utils>=0.36.1",
         "zimports>=0.2.0",
     ],
-    extras_require={
-        "dotenv": ["python-dotenv"],
-        "dev": [
-            "pytest",
-            "coverage",
-            "tox",
-        ],
-    },
+    extras_require={"dotenv": ["python-dotenv"], "dev": ["pytest", "coverage", "tox"]},
     entry_points={"console_scripts": ["anilius = anilius.cli.main:main"]},
 )

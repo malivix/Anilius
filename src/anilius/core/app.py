@@ -7,14 +7,13 @@ from concurrent import futures
 from importlib.util import find_spec
 
 import grpc
-from prometheus_client import start_http_server
-from py_grpc_prometheus.prometheus_server_interceptor import PromServerInterceptor
-from sentry_sdk import init as sentry_init
-
 from anilius.core.module import Module
 from anilius.core.service import Service
 from anilius.core.settings import settings
 from anilius.utils.singleton import Singleton
+from prometheus_client import start_http_server
+from py_grpc_prometheus.prometheus_server_interceptor import PromServerInterceptor
+from sentry_sdk import init as sentry_init
 
 NUM_SECS_TO_WAIT = 10
 
@@ -43,7 +42,7 @@ class App(metaclass=Singleton):
         )
         start_http_server(8081)
         self.set_signals()
-        sentry_init(debug=settings["DEBUG"], dsn=settings["SENTRY_DSN"])
+        sentry_init(dsn=settings["SENTRY_DSN"])
 
     def set_signals(self):
         signal.signal(signal.SIGTERM, self.on_done)
@@ -59,8 +58,7 @@ class App(metaclass=Singleton):
         root_of_module = "modules"
 
         for module in self.enable_modules:
-            module_path = root_of_module + "." + module
-            print(module_path)
+            module_path = root_of_module + "." + module + ".module"
 
             assert find_spec(module_path) is not None, "Enabled modules should exist"
 
@@ -68,6 +66,7 @@ class App(metaclass=Singleton):
 
             for entity_key in dir(mod):
                 entity = getattr(mod, entity_key)
+
                 if (
                     inspect.isclass(entity)
                     and issubclass(entity, Module)
