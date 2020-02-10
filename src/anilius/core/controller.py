@@ -1,15 +1,17 @@
 from abc import ABC
 
 import grpc
-from anilius.core.serializer import Serializer
-
-from anilius.core.serializer_field import SerializerField
-
 from anilius.core.permission import Permission
+from anilius.core.serializer import Serializer
+from anilius.core.serializer_field import SerializerField
+from anilius.utils.jwt import decode_jwt
+from jwt import InvalidAlgorithmError, InvalidSignatureError
 
 
 class Controller(ABC):
     permissions = ()
+    payload = {}
+    is_authorize = False
     request_serializer = None
     reply_serializer = None
     _serialized_data = None
@@ -44,6 +46,16 @@ class Controller(ABC):
                 permission, Permission
             ), "permissions should be type of Permission"
 
+        if self.authorization is not None:
+            self.extract_payload()
+
+    def extract_payload(self):
+        try:
+            self.payload = decode_jwt(self.authorization)
+            self.is_authorize = True
+        except (ValueError, InvalidAlgorithmError, InvalidSignatureError):
+            pass
+
     def get_valid_data(self, key, default=None):
         field = self._serialized_data.get(key, None)
 
@@ -70,7 +82,7 @@ class Controller(ABC):
 
     @property
     def sdk_id(self):
-        return self.meta.get("sdk-secret", None)
+        return self.meta.get("sdk-id", None)
 
     @property
     def sdk_secret(self):
@@ -78,7 +90,7 @@ class Controller(ABC):
 
     @property
     def authorization(self):
-        return self.meta.get("authorization ", None)
+        return self.meta.get("authorization", None)
 
     def get_response(self):
         self.check_permissions()
