@@ -44,7 +44,6 @@ class DBSession(metaclass=Singleton):
         elif self.commit:
             self.session.commit()
             if self.close:
-                self.session.expunge_all()
                 self.session.close()
 
         return True
