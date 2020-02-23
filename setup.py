@@ -39,6 +39,8 @@ setup(
         "SQLAlchemy-Utils>=0.36.1",
         "zimports>=0.2.0",
         "redis>=3.4.1",
+        "grpcio>=1.26.*",
+        "grpcio-tools>=1.26.*"
         "msgpack>=0.6.2",
         "lz4>=3.0.2",
         "loguru>=0.4.1"
