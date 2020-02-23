@@ -11,9 +11,9 @@ class DB(metaclass=Singleton):
 
     def __init__(self):
         self.engine = create_engine(
-            settings["DATABASE_URI"],
+            settings.get("DATABASE_URI", ""),
             convert_unicode=True,
-            **settings["DATABASE_CONNECT_OPTIONS"]
+            **settings.get("DATABASE_CONNECT_OPTIONS", {})
         )
         self.Model = declarative_base(name="Model")
 

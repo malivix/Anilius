@@ -13,13 +13,18 @@ class Controller(ABC):
     payload = {}
     is_authorize = False
     request_serializer = None
-    reply_serializer = None
+    request_deserializer = None
+    response_serializer = None
+    response_deserializer = None
     _serialized_data = None
     meta = {}
 
-    def __init__(self, request, context):
+    def __init__(self, request, context, request_deserializer, response_serializer):
+        self.request_deserializer = request_deserializer
+        self.response_serializer = response_serializer
         self.request = request
         self.context = context
+
         self.metadata = context.invocation_metadata()
 
         self.parse()

@@ -7,6 +7,7 @@ for a list of all possible variables.
 """
 
 import importlib
+from importlib.util import find_spec
 
 
 class Settings(object):
@@ -24,36 +25,35 @@ class Settings(object):
         """
         settings_module = "settings"
 
-        mod = importlib.import_module(settings_module)
+        if find_spec(settings_module):
+            mod = importlib.import_module(settings_module)
 
-        self._explicit_settings = set()
-        for setting in dir(mod):
-            if setting.isupper():
-                setting_value = getattr(mod, setting)
-                setattr(self, setting, setting_value)
-                self._explicit_settings.add(setting)
+            self._explicit_settings = set()
+            for setting in dir(mod):
+                if setting.isupper():
+                    setting_value = getattr(mod, setting)
+                    setattr(self, setting, setting_value)
+                    self._explicit_settings.add(setting)
 
-    def __getattr__(self, name):
-        """Return the value of a setting and cache it in self.__dict__."""
-        val = getattr(self, name)
-        self.__dict__[name] = val
-        return val
+    def get(self, key, default=None):
+        if hasattr(self, key):
+            return getattr(self, key)
 
-    def __getitem__(self, x):
-        return getattr(self, x)
+        return default
+
+    def set(self, key, value):
+        self.__setattr__(key, value)
 
     def __setattr__(self, name, value):
         """
         Set the value of setting. Clear all cached values if _wrapped changes
         (@override_settings does this) or clear single values when set.
         """
-        self.__dict__.pop(name, None)
         super().__setattr__(name, value)
 
     def __delattr__(self, name):
         """Delete a setting and clear it from cache if needed."""
         super().__delattr__(name)
-        self.__dict__.pop(name, None)
 
 
 settings = Settings()

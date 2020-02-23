@@ -1,0 +1,2 @@
+class CompressorError(Exception):
+    pass

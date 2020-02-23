@@ -1,11 +1,10 @@
 import importlib
 
 import grpc
+from anilius.utils.singleton import Singleton
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
-
-from anilius.utils.singleton import Singleton
 
 _sym_db = _symbol_database.Default()
 
@@ -39,8 +38,8 @@ class Service(metaclass=Singleton):
         rpc_handler = self._create_rpc_handler(rpc_method, controller)
 
         assert (
-            service not in self._services
-            or rpc_method.name not in self._services[service]
+                service not in self._services
+                or rpc_method.name not in self._services[service]
         ), "{} rpc for {} service is already add".format(service, rpc_method.name)
 
         if service in self._services:
@@ -49,9 +48,9 @@ class Service(metaclass=Singleton):
             self._services[service] = {rpc_method.name: rpc_handler}
 
     @staticmethod
-    def _create_controller_wrapper(controller):
+    def _create_controller_wrapper(controller, request_deserializer, response_serializer):
         def wrapper(request, context):
-            return controller(request, context).get_response()
+            return controller(request, context, request_deserializer, response_serializer).get_response()
 
         return wrapper
 
@@ -64,7 +63,7 @@ class Service(metaclass=Singleton):
         )
 
         handler = grpc.unary_unary_rpc_method_handler(
-            self._create_controller_wrapper(controller),
+            self._create_controller_wrapper(controller, request_deserializer, response_serializer),
             request_deserializer=request_deserializer.FromString,
             response_serializer=response_serializer.SerializeToString,
         )
@@ -113,3 +112,4 @@ class Service(metaclass=Singleton):
                 self._add_rpc_handler(
                     service.full_name, methods[rpc_method], controller
                 )
+                break

@@ -1,10 +1,10 @@
 import uuid
 
+from anilius.db.db import Model
 from anilius.db.db_session import DBSession
 from sqlalchemy import Column, DateTime
 from sqlalchemy.sql import func
 
-from anilius.core.db import Model, db_session
 from anilius.model.uuid import UUID
 from anilius.utils.uuid import validate_uuid4
 
