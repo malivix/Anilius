@@ -1,0 +1,122 @@
+syntax = "proto3";
+
+package qbit.wallet;
+
+import "wallet/resources.proto";
+
+// Replies
+message GetStatusReply {
+    bool ok = 1;
+    string up_time = 2;
+    string version = 3;
+    bool force_ipg = 4;
+    repeated string enable_mpg = 5;
+    bool force_update = 6;
+}
+
+message AuthenticateReply {
+    bool ok = 1;
+    string hash = 2;
+}
+
+message VerifyAuthenticateReply {
+    bool ok = 1;
+    string token = 2;
+    string wallet_id = 3;
+}
+
+message CheckAuthenticateReply {
+    bool ok = 1;
+}
+
+message RefreshAuthenticateReply {
+    bool ok = 1;
+    string token = 2;
+    string wallet_id = 3;
+}
+
+message SetWalletPermissionsReply {
+    bool ok = 1;
+    string token = 2;
+    repeated Permission permissions = 3;
+    int32 count = 4;
+}
+
+message GetUserReply {
+    bool ok = 1;
+    User user = 2;
+}
+
+message GetPartnerReply {
+    bool ok = 1;
+    Partner partner = 2;
+    int32 sum_charge = 3;
+    int32 sum_debt = 4;
+    int32 sum_collect = 5;
+}
+
+message GetPartnerServicesReply {
+    bool ok = 1;
+    repeated Service services = 2;
+    int32 count = 3;
+}
+
+message GetPartnerDebtsReply {
+    bool ok = 1;
+    repeated PartnerDebt debts = 2;
+    int32 count = 3;
+    int32 sum_debt = 4;
+}
+
+message CreateWalletPaymentsReply {
+    bool ok = 1;
+    Payment payment = 2;
+    string callback_ipg = 3;
+}
+
+message GetPaymentReply {
+    bool ok = 1;
+    Payment payment = 2;
+}
+
+message CancelPaymentReply {
+    bool ok = 1;
+    Payment payment = 2;
+}
+
+message ModifyPaymentReply {
+    bool ok = 1;
+    Payment payment = 2;
+}
+
+message VerifyPaymentReply {
+    bool ok = 1;
+    Payment payment = 2;
+}
+
+message GetPaymentTransactionsReply {
+    bool ok = 1;
+    repeated Transaction transactions = 2;
+    int32 count = 3;
+}
+
+message GetWalletReply {
+    bool ok = 1;
+    Wallet wallet = 2;
+    int32 sum_charge = 3;
+    int32 sum_debt = 4;
+    int32 sum_collect = 5;
+}
+
+message GetWalletPaymentsReply {
+    bool ok = 1;
+    repeated Payment payments = 2;
+    int32 count = 3;
+}
+
+message GetWalletDebtsReply {
+    bool ok = 1;
+    repeated PartnerDebt debts = 2;
+    int32 count = 3;
+    int32 sum_debt = 4;
+}

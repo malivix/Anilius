@@ -24,6 +24,7 @@ setup(
     install_requires=[
         "alembic>=1.3.2",
         "black>=18.9b0",
+        "click>=7.0",
         "coverage>=5.*",
         "flake8>=3.7.*",
         "mysqlclient>=1.4.6",

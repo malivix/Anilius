@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package qbit.wallet;
+
+// Resources
+message Wallet {
+    string wallet_id = 1;
+    bool is_blocked = 2;
+    bool is_negative = 3;
+    int32 balance = 4;
+}
+
+message Payment {
+    bool is_verified = 1;
+    bool is_blocked = 2;
+    string partner_id = 3;
+    string payment_id = 4;
+    string order_id = 5;
+    string wallet_id = 6;
+    int32 amount = 7;
+    int32 previous_amount = 8;
+    int32 refund_amount = 9;
+    string status = 10;
+    string refund_status = 11;
+}
+
+message Transaction {
+    string payment_id = 1;
+    string partner_id = 2;
+    string wallet_id = 3;
+    string psp_name = 4;
+    string type = 5;
+    int32 amount = 6;
+    int32 trace_number = 7;
+    string status = 8;
+}
+
+message User {
+    string user_id = 2;
+    string wallet_id = 3;
+    string avatar = 4;
+    string username = 5;
+    string first_name = 6;
+    string last_name = 7;
+}
+
+message Permission {
+    enum PermissionType {
+        ALL = 0;
+        GENERAL = 1;
+        GET_BALANCE = 2;
+    }
+
+    bool is_grant = 1;
+    string permission_id = 2;
+    PermissionType permission_type = 3;
+}
+
+message RequestPermission {
+    bool is_grant = 1;
+    Permission.PermissionType permission_type = 2;
+}
+
+message Partner {
+    string partner_id = 1;
+    string expire_client_secret = 2;
+    int32 max_debt_amount = 6;
+    int32 max_debt_count = 7;
+}
+
+message PartnerDebt {
+    string partner_id = 1;
+    string wallet_id = 2;
+    int32 amount = 3;
+}
+
+message Service {
+    string service_id = 1;
+    string partner_id = 2;
+    string title = 3;
+    int32 max_amount = 4;
+    int32 max_debt_amount = 5;
+    int32 modify_count = 6;
+    int32 modify_crm_count = 7;
+    int32 cancel_count = 8;
+}

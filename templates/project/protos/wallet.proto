@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package qbit;
+
+import "google/protobuf/empty.proto";
+import "wallet/requests.proto";
+import "wallet/replies.proto";
+
+// The wallets service definition.
+service WalletService {
+  rpc GetStatus (wallet.GetStatusRequest) returns (wallet.GetStatusReply) {}
+  rpc Authenticate (wallet.AuthenticateRequest) returns (wallet.AuthenticateReply) {}
+  rpc VerifyAuthenticate (wallet.VerifyAuthenticateRequest) returns (wallet.VerifyAuthenticateReply) {}
+  rpc CheckAuthenticate (google.protobuf.Empty) returns (wallet.CheckAuthenticateReply) {}
+  rpc RefreshAuthenticate (google.protobuf.Empty) returns (wallet.RefreshAuthenticateReply) {}
+  rpc SetWalletPermissions (wallet.SetWalletPermissionsRequest) returns (wallet.SetWalletPermissionsReply) {}
+  rpc GetUser (google.protobuf.Empty) returns (wallet.GetUserReply) {}
+  rpc GetPartner (wallet.GetPartnerRequest) returns (wallet.GetPartnerReply) {}
+  rpc GetPartnerServices (wallet.GetPartnerServicesRequest) returns (wallet.GetPartnerServicesReply) {}
+  rpc GetPartnerDebts (wallet.GetPartnerDebtsRequest) returns (wallet.GetPartnerDebtsReply) {}
+  rpc CreateWalletPayments (wallet.CreateWalletPaymentsRequest) returns (wallet.CreateWalletPaymentsReply) {}
+  rpc GetPayment (wallet.GetPaymentRequest) returns (wallet.GetPaymentReply) {}
+  rpc CancelPayment (wallet.CancelPaymentRequest) returns (wallet.CancelPaymentReply) {}
+  rpc ModifyPayment (wallet.ModifyPaymentRequest) returns (wallet.ModifyPaymentReply) {}
+  rpc VerifyPayment (wallet.VerifyPaymentRequest) returns (wallet.VerifyPaymentReply) {}
+  // TODO: Implement
+  rpc GetPaymentTransactions (wallet.GetPaymentTransactionsRequest) returns (wallet.GetPaymentTransactionsReply) {}
+  rpc GetWallet (wallet.GetWalletRequest) returns (wallet.GetWalletReply) {}
+  rpc GetWalletPayments (wallet.GetWalletPaymentsRequest) returns (wallet.GetWalletPaymentsReply) {}
+  rpc GetWalletDebts (wallet.GetWalletDebtsRequest) returns (wallet.GetWalletDebtsReply) {}
+}

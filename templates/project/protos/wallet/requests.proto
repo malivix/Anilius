@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package qbit.wallet;
+
+// Requests
+message GetStatusRequest {
+    string wallet_id = 1;
+    string sdk_version = 2;
+}
+
+message AuthenticateRequest {
+    string phone_number = 1;
+    string unique_id = 2;
+}
+
+message VerifyAuthenticateRequest {
+    string hash = 1;
+    string raw_otp = 2;
+}
+
+message SetWalletPermissionsRequest {
+    string wallet_id = 1;
+    bool grant = 2;
+}
+
+message GetPartnerRequest {
+    string partner_id = 1;
+}
+
+message GetPartnerServicesRequest {
+    string partner_id = 1;
+}
+
+message GetPartnerDebtsRequest {
+    string partner_id = 1;
+}
+
+message CreateWalletPaymentsRequest {
+    string order_id = 1;
+    string service_id = 2;
+    string wallet_id = 3;
+    int32 amount = 4;
+}
+
+message GetPaymentRequest {
+    string payment_id = 1;
+}
+
+message CancelPaymentRequest {
+    string payment_id = 1;
+}
+
+message ModifyPaymentRequest {
+    string payment_id = 1;
+    string order_id = 2;
+    int32 amount = 3;
+    int32 previous_amount = 4;
+}
+
+message VerifyPaymentRequest {
+    string payment_id = 1;
+    string order_id = 2;
+    int32 amount = 3;
+}
+
+message GetPaymentTransactionsRequest {
+    string payment_id = 1;
+}
+
+message GetWalletRequest {
+    string wallet_id = 1;
+}
+
+message GetWalletPaymentsRequest {
+    string wallet_id = 1;
+}
+
+message GetWalletDebtsRequest {
+    string wallet_id = 1;
+}

@@ -9,7 +9,6 @@ from anilius.core.settings import settings
 from anilius.server.grpcio import GRPCIOServer
 from anilius.utils.singleton import Singleton
 from prometheus_client import start_http_server
-from sentry_sdk import init as sentry_init
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -57,5 +56,7 @@ class App(metaclass=Singleton):
                 ):
                     self._initialize_module(entity)
 
-    async def run(self):
-        await self.server.start()
+    @staticmethod
+    async def run():
+        app = App()
+        await app.server.start()
