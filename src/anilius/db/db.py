@@ -12,7 +12,6 @@ class DB(metaclass=Singleton):
     def __init__(self):
         self.engine = create_engine(
             settings.get("DATABASE_URI", "mysql://127.0.0.1:3306/anilius"),
-            convert_unicode=True,
             **settings.get("DATABASE_CONNECT_OPTIONS", {})
         )
         self.Model = declarative_base(name="Model")

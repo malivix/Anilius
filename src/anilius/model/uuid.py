@@ -11,8 +11,8 @@ class UUID(TypeDecorator):
     BINARY(16), to store UUID.
 
     """
-
     impl = BINARY
+    cache_ok = True
 
     def load_dialect_impl(self, dialect):
         if dialect.name == "postgresql":
