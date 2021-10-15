@@ -1,32 +1,12 @@
 import os
 
 import click
+from anilius.cli.create import create_command
 from anilius.cli.serve import serve_command
 from anilius.cli.version import version_option
 
 
 class AniliusGroup(click.Group):
-    """Special subclass of the :class:`AppGroup` group that supports
-    loading more commands from the configured Anilius app.  Normally a
-    developer does not have to interface with this class but there are
-    some very advanced use cases for which it makes sense to create an
-    instance of this.
-    For information as of why this is useful see :ref:`custom-scripts`.
-    :param add_default_commands: if this is True then the default run and
-        shell commands will be added.
-    :param add_version_option: adds the ``--version`` option.
-    :param create_app: an optional callback that is passed the script info and
-        returns the loaded app.
-    :param load_dotenv: Load the nearest :file:`.env` and :file:`.flaskenv`
-        files to set environment variables. Will also change the working
-        directory to the directory containing the first file found.
-    :param set_debug_flag: Set the app's debug flag based on the active
-        environment
-    .. versionchanged:: 1.0
-        If installed, python-dotenv will be used to load environment variables
-        from :file:`.env` and :file:`.flaskenv` files.
-    """
-
     def __init__(
             self,
             create_app=None,
@@ -42,6 +22,7 @@ class AniliusGroup(click.Group):
 
         click.Group.__init__(self, params=params, **extra)
 
+        self.add_command(create_command)
         self.add_command(serve_command)
 
         self.create_app = create_app
@@ -60,14 +41,6 @@ class AniliusGroup(click.Group):
 cli = AniliusGroup(
     help="""\
 A general utility script for Anilius microservice.
-Provides commands from Anilius, extensions, and the application. Loads the
-application defined in the ANILIUS_APP environment variable.
-Setting the ANILIUS_ENV environment variable to 'development' will enable
-debug mode.
-\n
-  {prefix}{cmd} ANILIUS_APP=hello.py\n
-  {prefix}{cmd} ANILIUS_ENV=development\n
-  {prefix}anilius run\n
 """.format(
         cmd="export" if os.name == "posix" else "set",
         prefix="$ " if os.name == "posix" else "> ",
