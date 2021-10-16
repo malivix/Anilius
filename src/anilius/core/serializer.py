@@ -2,7 +2,7 @@ from collections import OrderedDict
 
 from anilius.core.serializer_field import SerializerField
 from google.protobuf.message import Message
-from google.protobuf.pyext._message import RepeatedCompositeContainer
+from google.protobuf.internal.containers import RepeatedScalarFieldContainer
 
 
 class SerializerMetaclass(type):
@@ -47,10 +47,11 @@ class SerializerMetaclass(type):
         return super().__new__(mcs, name, bases, attrs)
 
 
-class Serializer(metaclass=SerializerMetaclass):
+class Serializer(SerializerField, metaclass=SerializerMetaclass):
     _declared_fields = None
 
     def __init__(self, request):
+        super().__init__()
         assert isinstance(request, Message), "Request should be type of Message"
 
         for field in request.ListFields():
@@ -67,7 +68,7 @@ class Serializer(metaclass=SerializerMetaclass):
                 raw_value = self.extract_message(raw_value)
                 raw_dict[field[0].name] = raw_value
             raw_value = raw_dict
-        elif type(raw_value) is RepeatedCompositeContainer:
+        elif type(raw_value) is RepeatedScalarFieldContainer:
             raw_list = []
 
             for element in raw_value:
@@ -75,7 +76,15 @@ class Serializer(metaclass=SerializerMetaclass):
 
             raw_value = raw_list
 
+        print(type(raw_value))
+
         return raw_value
+
+    def validate(self):
+        return True
+
+    def get_value(self):
+        return self.to_dict()
 
     def get_declared_fields(self):
         return self._declared_fields
