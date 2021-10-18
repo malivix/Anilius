@@ -25,20 +25,21 @@ class BaseModel(Model):
         return entity
 
     @classmethod
-    def get(cls, entity_id):
-        if not validate_uuid4(entity_id):
-            raise ValueError("entity id should be uuid4")
+    def get(cls, *entity_id):
+        for enttid in entity_id:
+            if not validate_uuid4(enttid):
+                raise ValueError("entity id should be uuid4")
         with DBSession(commit=False) as session:
-            entity = session.query(cls).get(entity_id)
-        return entity
+            entities = [session.query(cls).get(enttid) for enttid in entity_id]
+        return tuple(entities)
 
     @classmethod
     def list(cls, condition_dict):
         with DBSession(commit=False) as session:
             entity = session.query(cls).filter(*condition_dict).all()
         return entity
-        @classmethod
 
+    @classmethod
     def delete(cls, entity_id: "UUID") -> None:
         """deletes the given entry from database table
 
