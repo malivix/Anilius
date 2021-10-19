@@ -41,6 +41,7 @@ class Controller(ABC):
         self.context.set_details("You have not permission for this action")
 
     def parse(self):
+        self.meta = {}
         self._serialized_data = self.get_request_serializer(self.request).to_dict()
 
         for data in self.metadata:
@@ -51,12 +52,16 @@ class Controller(ABC):
                 permission, Permission
             ), "permissions should be type of Permission"
 
-        if self.authorization is not None:
-            self.extract_payload()
+        authorization = self.meta.get("authorization", None)
+        if authorization is not None:
+            self.extract_payload(authorization)
+        else:
+            self.payload = {}
+            self.is_authorize = False
 
-    def extract_payload(self):
+    def extract_payload(self, authorization):
         try:
-            self.payload = decode_jwt(self.authorization)
+            self.payload = decode_jwt(authorization)
             self.is_authorize = True
         except (ValueError, InvalidAlgorithmError, InvalidSignatureError):
             pass
@@ -76,26 +81,6 @@ class Controller(ABC):
             if self.request_serializer is not None
             else Serializer
         )
-
-    @property
-    def client_id(self):
-        return self.meta.get("client-id", None)
-
-    @property
-    def client_secret(self):
-        return self.meta.get("client-secret", None)
-
-    @property
-    def sdk_id(self):
-        return self.meta.get("sdk-id", None)
-
-    @property
-    def sdk_secret(self):
-        return self.meta.get("sdk-secret", None)
-
-    @property
-    def authorization(self):
-        return self.meta.get("authorization", None)
 
     def get_response(self):
         self.check_permissions()

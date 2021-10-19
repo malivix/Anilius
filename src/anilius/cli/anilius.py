@@ -40,7 +40,7 @@ class AniliusGroup(click.Group):
 
 cli = AniliusGroup(
     help="""\
-A general utility script for Anilius microservice.
+A watchlist utility script for Anilius microservice.
 """.format(
         cmd="export" if os.name == "posix" else "set",
         prefix="$ " if os.name == "posix" else "> ",
