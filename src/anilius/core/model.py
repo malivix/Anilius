@@ -55,4 +55,3 @@ class BaseModel(Model):
         with DBSession(commit=False) as session:
             entity = session.query(cls).get(entity_id)
             session.delete(entity)
-        return
