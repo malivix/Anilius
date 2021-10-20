@@ -56,23 +56,3 @@ class BaseModel(Model):
             entity = session.query(cls).get(entity_id)
             session.delete(entity)
         return
-
-    @classmethod
-    def update(cls, entity_id: "UUID", new_fields: Dict) -> None:
-        """updates the model given the new fields
-
-        Args:
-            entity_id (UUID): id of the entry to be updated
-            new_fields (Dict): fields with the updated values
-
-        Raises:
-            ValueError: raised when the given id is not uuid4
-        """
-
-        if not validate_uuid4(entity_id):
-            raise ValueError("entity id should be uuid4")
-        with DBSession(commit=True, close=True) as session:
-            entity = session.query(cls).get(entity_id)
-            entity.update(new_fields)
-        return
-
