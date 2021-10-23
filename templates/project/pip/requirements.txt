@@ -4,55 +4,128 @@
 #
 #    pip-compile requirements.in
 #
-alembic==1.3.2            # via anilius
+alembic==1.3.2
+    # via anilius
 anilius==1.1.2b0
-apipkg==1.5               # via execnet
-appdirs==1.4.3            # via black
-attrs==19.3.0             # via black, pytest
-black==18.9b0             # via anilius
-certifi==2019.11.28       # via sentry-sdk
-click==7.0                # via black
-coverage==5.0.1           # via anilius, pytest-cov
-entrypoints==0.3          # via flake8
-execnet==1.7.1            # via pytest-xdist
-flake8-import-order==0.18.1  # via zimports
-flake8==3.7.9             # via anilius
-grpcio-tools==1.26.0      # via anilius
-grpcio==1.26.0            # via anilius, grpcio-tools, py-grpc-prometheus
-loguru==0.4.1             # via anilius
-lz4==3.0.2                # via anilius
-mako==1.1.0               # via alembic
-markupsafe==1.1.1         # via mako
-mccabe==0.6.1             # via flake8
-more-itertools==8.1.0     # via pytest
-mysqlclient==1.4.6        # via anilius
-packaging==20.0           # via pytest
-passlib==1.7.2            # via anilius
-phonenumbers==8.11.1      # via anilius
-pluggy==0.13.1            # via pytest
-prometheus-client==0.7.1  # via py-grpc-prometheus
-protobuf==3.11.2          # via grpcio-tools
-py-grpc-prometheus==0.2.0  # via anilius
-py==1.8.1                 # via pytest
-pycodestyle==2.5.0        # via flake8, flake8-import-order
-pyflakes==2.1.1           # via flake8, zimports
-pyjwt==1.7.1              # via anilius
-pyparsing==2.4.6          # via packaging
-pytest-cov==2.8.1         # via anilius
-pytest-forked==1.1.3      # via pytest-xdist
-pytest-xdist==1.31.0      # via anilius
-pytest==5.3.4             # via anilius, pytest-cov, pytest-forked, pytest-xdist
-python-dateutil==2.8.1    # via alembic
-python-editor==1.0.4      # via alembic
-redis==3.4.1              # via anilius
-sentry-sdk==0.14.1        # via anilius
-six==1.13.0               # via grpcio, packaging, protobuf, pytest-xdist, python-dateutil, sqlalchemy-utils
-sqlalchemy-utils==0.36.1  # via anilius
-sqlalchemy==1.3.12        # via alembic, anilius, sqlalchemy-utils
-toml==0.10.0              # via black
-urllib3==1.25.8           # via sentry-sdk
-wcwidth==0.1.8            # via pytest
-zimports==0.2.0           # via anilius
+    # via -r requirements.in
+apipkg==1.5
+    # via execnet
+appdirs==1.4.3
+    # via black
+attrs==19.3.0
+    # via
+    #   black
+    #   pytest
+black==18.9b0
+    # via anilius
+certifi==2019.11.28
+    # via sentry-sdk
+click==7.0
+    # via black
+coverage==5.0.1
+    # via
+    #   anilius
+    #   pytest-cov
+entrypoints==0.3
+    # via flake8
+execnet==1.7.1
+    # via pytest-xdist
+flake8==3.7.9
+    # via anilius
+flake8-import-order==0.18.1
+    # via zimports
+grpcio==1.26.0
+    # via
+    #   anilius
+    #   grpcio-tools
+    #   py-grpc-prometheus
+grpcio-tools==1.26.0
+    # via anilius
+loguru==0.4.1
+    # via anilius
+lz4==3.0.2
+    # via anilius
+mako==1.1.0
+    # via alembic
+markupsafe==1.1.1
+    # via mako
+mccabe==0.6.1
+    # via flake8
+more-itertools==8.1.0
+    # via pytest
+mysqlclient==1.4.6
+    # via anilius
+packaging==20.0
+    # via pytest
+passlib==1.7.2
+    # via anilius
+phonenumbers==8.11.1
+    # via anilius
+pluggy==0.13.1
+    # via pytest
+prometheus-client==0.7.1
+    # via py-grpc-prometheus
+protobuf==3.11.2
+    # via grpcio-tools
+py==1.8.1
+    # via pytest
+py-grpc-prometheus==0.2.0
+    # via anilius
+pycodestyle==2.5.0
+    # via
+    #   flake8
+    #   flake8-import-order
+pyflakes==2.1.1
+    # via
+    #   flake8
+    #   zimports
+pyjwt==1.7.1
+    # via anilius
+pyparsing==2.4.6
+    # via packaging
+pytest==5.3.4
+    # via
+    #   anilius
+    #   pytest-cov
+    #   pytest-forked
+    #   pytest-xdist
+pytest-cov==2.8.1
+    # via anilius
+pytest-forked==1.1.3
+    # via pytest-xdist
+pytest-xdist==1.31.0
+    # via anilius
+python-dateutil==2.8.1
+    # via alembic
+python-editor==1.0.4
+    # via alembic
+redis==3.4.1
+    # via anilius
+sentry-sdk==0.14.1
+    # via anilius
+six==1.13.0
+    # via
+    #   grpcio
+    #   packaging
+    #   protobuf
+    #   pytest-xdist
+    #   python-dateutil
+    #   sqlalchemy-utils
+sqlalchemy==1.3.12
+    # via
+    #   alembic
+    #   anilius
+    #   sqlalchemy-utils
+sqlalchemy-utils==0.36.1
+    # via anilius
+toml==0.10.0
+    # via black
+urllib3==1.26.5
+    # via sentry-sdk
+wcwidth==0.1.8
+    # via pytest
+zimports==0.2.0
+    # via anilius
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
